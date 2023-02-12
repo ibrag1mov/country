@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom'
+import { ThemeContext } from '../../context/ThemeContext';
 import './card.scss'
 
 export const Card = ({obj, to}) =>{
-  return(  <div className="card" id='1'>
+
+
+  let { theme } = useContext(ThemeContext);
+  return(  <div className={theme == 'dark' ? "card bg-dark text-white" : "card"} id='1'>
         <img src={obj.flags.svg} className="card-img" width={'100%'} height='180px'/>
         <div className="card-body">
             <h4 className="card-title">{obj.name.common}</h4>

@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import { Card } from "./Components/Card/Card";
 import { Header } from "./Components/Header";
 import { SingleCard } from "./Components/SingleCard/SingleCard";
+import { ThemeContext } from "./context/ThemeContext";
 
 
 
 function App() {
+
+  let { theme } = useContext(ThemeContext);
 
   const elInput = useRef();
   const elSelect = useRef();
@@ -116,7 +119,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className={theme == 'dark' ? 'App bg-dark bg-gradient text-white' : 'App bg-light text-dark'}>
       <Header/>
 
       <Routes>
@@ -137,13 +140,14 @@ function App() {
                   >
                     <input
                       type='text'
-                      className='w-25 form-control my-3 shadow'
+                      className={theme == 'dark' ? "w-25 form-control my-3 shadow bg-dark text-white" : "w-25 form-control my-3 shadow"}
+
                       placeholder='Search for a country…'
                       ref={elInput}
                     />
                     <select
                       ref={elSelect}
-                      className='form-select w-25 ms-auto my-3 shadow'
+                      className={theme == 'dark' ? " form-select w-25 ms-auto my-3 shadow bg-dark text-white" : "form-select w-25 ms-auto my-3 shadow"}
                       aria-label='Default select example'
                       onChange={handleChange}
                     >

@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { BsMoon, BsSun } from "react-icons/bs";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export const Header = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || "ligth");
+  let { theme, res, setRes } = useContext(ThemeContext);
+
 
   const handleButton = () => {
-    theme == "light" ? setTheme("dark") : setTheme("light");
-    theme == "dark" ? setTheme("light") : setTheme("dark");
+    res = !res;
+    res ? setRes(true) : setRes(false);
   };
-
-  localStorage.setItem("theme", theme);
-
-
   return (
     <header
       className={
@@ -24,6 +22,7 @@ export const Header = () => {
       <div className="container d-flex align-items-center">
         <div className="logo">
           <Link
+            
             to="/"
             className={
               theme == "dark"
@@ -42,9 +41,15 @@ export const Header = () => {
               : "btn btn-link ms-auto text-dark text-decoration-none"
           }
         >
-          {
-            theme == 'dark' ? (<span><BsSun /> Light Mode</span>) : (<span><BsMoon /> Dark Mode</span>)
-          }
+          {theme == "dark" ? (
+            <span>
+              <BsSun /> Light Mode
+            </span>
+          ) : (
+            <span>
+              <BsMoon /> Dark Mode
+            </span>
+          )}
         </button>
       </div>
     </header>
